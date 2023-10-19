@@ -19,17 +19,17 @@ const Login: React.FC = () => {
               <Link className="mb-5.5 inline-block" href="/">
                 <Image
                   className="hidden dark:block"
-                  src={"/images/logo/findmyleather.png"}
+                  src={"/images/findmyleather/FindMyLeather-Black-Trans-bg.png"}
                   alt="Logo"
-                  width={176}
-                  height={32}
+                  width={250}
+                  height={300}
                 />
                 <Image
                   className="dark:hidden"
-                  src={"/images/logo/findmyleather.png"}
+                  src={"/images/findmyleather/FindMyLeather-White-Trans-bg.png"}
                   alt="Logo"
-                  width={176}
-                  height={32}
+                  width={300}
+                  height={300}
                 />
               </Link>
 
