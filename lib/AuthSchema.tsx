@@ -5,7 +5,7 @@ export const SignUpSchema = z
     name: z
       .string()
       .trim()
-      .min(2, "Name must contain at least 2 characters")
+      .min(4, "Name must contain at least 4 characters")
       .max(50),
     email: z.string().trim().email("Invalid email address"),
     password: z
