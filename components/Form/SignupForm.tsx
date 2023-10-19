@@ -3,36 +3,12 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
 import Link from "next/link";
-
-const SignUpSchema = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(2, "Name must contain at least 2 characters")
-      .max(50),
-    email: z.string().trim().email("Invalid email address"),
-    password: z
-      .string()
-      .trim()
-      .min(6, "Password must be at least 6 characters")
-      .max(20),
-    retypepassword: z
-      .string()
-      .trim()
-      .min(6, "Password must be at least 6 characters")
-      .max(20),
-  })
-  .refine((data) => data.password === data.retypepassword, {
-    message: "Password do not match",
-    path: ["retypepassword"],
-  });
-
-type SignUpType = z.infer<typeof SignUpSchema>;
+import SignUpSchema, { SignUpType } from "@/lib/signUpSchema";
+import { SignUpUser } from "@/serverAction/SignUpUser";
+import getErrorMessage from "@/lib/getErrorMessage";
 
 const SignupForm = () => {
   const {
@@ -49,16 +25,15 @@ const SignupForm = () => {
   const onSubmit: SubmitHandler<SignUpType> = async (data) => {
     setIsSubmitting(true);
     reset();
-    console.log(data);
 
-    // const result = await SignUpNewUser(data);
-    // if (!result) {
-    //   //   toast.error("Error in System!");
-    // } else if (result.error) {
-    //   //   toast.error(getErrorMessage(result.error));
-    // } else {
-    //   //   toast.success("Issue Successfully created!");
-    // }
+    const result = await SignUpUser(data);
+    if (!result) {
+      console.log("Error in System!");
+    } else if (result.error) {
+      console.log(getErrorMessage(result.error));
+    } else {
+      console.log("New User Successfully Registered!");
+    }
     setIsSubmitting(false);
   };
 
