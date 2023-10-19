@@ -1,17 +1,17 @@
 "use server";
 
 import getErrorMessage from "@/lib/getErrorMessage";
-import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
+import { LogInSchema, LogInType } from "@/lib/AuthSchema";
 
-export async function SignUpUser(data: SignUpType) {
-  const result = SignUpSchema.safeParse(data);
+export async function LogInUser(data: LogInType) {
+  const result = LogInSchema.safeParse(data);
 
   if (!result.success) {
     return { success: false, error: result.error.format() };
   }
 
   try {
-    const newUser = "New User Added";
+    const newUser = "User Logged In";
 
     return { success: true, data: newUser };
   } catch (error) {

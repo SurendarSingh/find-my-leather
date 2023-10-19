@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
 import Link from "next/link";
-import SignUpSchema, { SignUpType } from "@/lib/signUpSchema";
+import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
 import getErrorMessage from "@/lib/getErrorMessage";
 
@@ -187,9 +187,9 @@ const SignupForm = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="w-full cursor-pointer rounded-lg border border-findmyleather bg-findmyleather p-4 text-white transition hover:bg-opacity-90"
+          className="flex w-full items-center justify-center gap-3.5 cursor-pointer rounded-lg border border-findmyleather bg-findmyleather p-4 text-white transition hover:bg-opacity-90"
         >
-          Create account {isSubmitting && <Spinner />}
+          Create Account {isSubmitting && <Spinner />}
         </button>
       </div>
 

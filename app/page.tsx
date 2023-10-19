@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard/Dashboard";
+import Demo from "@/components/Dashboard/Demo";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Dashboard />
+      <Demo />
     </>
   );
 }
