@@ -36,8 +36,6 @@ const LoginForm = () => {
     setIsSubmitting(false);
   };
 
-  // Test comment
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
