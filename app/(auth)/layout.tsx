@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import "@/app/data-tables-css.css";
 import "@/app/satoshi.css";
 import { useState, useEffect } from "react";
-import Loader from "@/components/common/Loader";
+import Loader from "@/components/Loader";
 
 export default function RootLayout({
   children,
