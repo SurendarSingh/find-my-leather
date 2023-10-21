@@ -24,6 +24,8 @@ const SignUp: React.FC = () => {
                   alt="Logo"
                   width={250}
                   height={300}
+                  style={{ width: "auto", height: "auto" }}
+                  priority={true}
                 />
                 <Image
                   className="dark:hidden"
@@ -31,6 +33,8 @@ const SignUp: React.FC = () => {
                   alt="Logo"
                   width={300}
                   height={300}
+                  style={{ width: "auto", height: "auto" }}
+                  priority={true}
                 />
               </Link>
 

@@ -70,6 +70,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             height={100}
             src={"/images/findmyleather/FindMyLeather-Black-Trans-bg.png"}
             alt="Logo"
+            style={{ width: "auto", height: "auto" }}
+            priority={true}
           />
         </Link>
 
