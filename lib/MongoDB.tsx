@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 export async function connectMongoDB() {
   try {
+    if (!process.env.MONGODB_URI) {
+      throw new Error("MONGODB_URI is not defined!");
+    }
     await mongoose.connect(process.env.MONGODB_URI!);
 
     // const connection = mongoose.connection;
@@ -15,8 +18,9 @@ export async function connectMongoDB() {
     //   console.log("MongoDB database connection established successfully");
     // });
 
-    console.log("MongoDB database connection established successfully");
+    // console.log("MongoDB database connection established successfully");
   } catch (err) {
-    console.log("Error connecting to MongoDB: " + err);
+    // console.log("Error connecting to MongoDB: " + err);
+    throw new Error(err + ", Please contact Admin!");
   }
 }

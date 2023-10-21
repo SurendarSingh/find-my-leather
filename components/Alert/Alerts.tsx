@@ -75,9 +75,7 @@ export function ErrorAlert({
         <div className="w-full">
           <h5 className="mb-3 font-semibold text-[#B45454]">{title}</h5>
           {message && (
-            <ul>
-              <li className="leading-relaxed text-[#CD5D5D]">{message}</li>
-            </ul>
+            <p className="leading-relaxed text-[#CD5D5D]">{message}</p>
           )}
         </div>
       </div>

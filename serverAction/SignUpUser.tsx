@@ -53,6 +53,11 @@ export async function SignUpUser(data: SignUpType) {
     // await sendVerificationEmail(savedUser);
 
     // Create and assign a token
+
+    if (!process.env.TOKEN_SECRET) {
+      throw new Error("TOKEN_SECRET not found in .env, Please contact Admin!");
+    }
+
     const token = await jwt.sign(
       { _id: savedUser._id, email: savedUser.email },
       process.env.TOKEN_SECRET!
@@ -71,6 +76,10 @@ export async function SignUpUser(data: SignUpType) {
       data: responseData,
     };
   } catch (error) {
-    return { success: false, error: getErrorMessage(error) };
+    return {
+      success: false,
+      error: "Something went wrong",
+      message: getErrorMessage(error),
+    };
   }
 }
