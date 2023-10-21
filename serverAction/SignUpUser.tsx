@@ -30,7 +30,8 @@ export async function SignUpUser(data: SignUpType) {
       return {
         success: false,
         code: "USER_ALREADY_EXIST",
-        error: "User already exist",
+        error: "You have already registered",
+        message: "Please login to your account",
       };
     }
 
@@ -67,7 +68,6 @@ export async function SignUpUser(data: SignUpType) {
 
     return {
       success: true,
-      message: "You have successfully registered",
       data: responseData,
     };
   } catch (error) {

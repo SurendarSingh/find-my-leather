@@ -3,10 +3,10 @@ import toast from "react-hot-toast";
 
 export function SuccessAlert({
   title,
-  content,
+  message,
 }: {
   title: string;
-  content?: string;
+  message?: string;
 }) {
   return toast.custom((t) => (
     <div
@@ -34,8 +34,8 @@ export function SuccessAlert({
           <h5 className="mb-3 text-lg font-semibold text-black dark:text-[#34D399] ">
             {title}
           </h5>
-          {content && (
-            <p className="text-base leading-relaxed text-body">{content}</p>
+          {message && (
+            <p className="text-base leading-relaxed text-body">{message}</p>
           )}
         </div>
       </div>
@@ -45,10 +45,10 @@ export function SuccessAlert({
 
 export function ErrorAlert({
   title,
-  content,
+  message,
 }: {
   title: string;
-  content?: string;
+  message?: string;
 }) {
   return toast.custom((t) => (
     <div
@@ -74,9 +74,9 @@ export function ErrorAlert({
         </div>
         <div className="w-full">
           <h5 className="mb-3 font-semibold text-[#B45454]">{title}</h5>
-          {content && (
+          {message && (
             <ul>
-              <li className="leading-relaxed text-[#CD5D5D]">{content}</li>
+              <li className="leading-relaxed text-[#CD5D5D]">{message}</li>
             </ul>
           )}
         </div>
@@ -87,10 +87,10 @@ export function ErrorAlert({
 
 export function WarningAlert({
   title,
-  content,
+  message,
 }: {
   title: string;
-  content?: string;
+  message?: string;
 }) {
   return toast.custom((t) => (
     <div
@@ -115,8 +115,8 @@ export function WarningAlert({
         </div>
         <div className="w-full">
           <h5 className="mb-3 text-lg font-semibold text-[#9D5425]">{title}</h5>
-          {content && (
-            <p className="leading-relaxed text-[#D0915C]">{content}</p>
+          {message && (
+            <p className="leading-relaxed text-[#D0915C]">{message}</p>
           )}
         </div>
       </div>

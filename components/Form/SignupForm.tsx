@@ -10,6 +10,7 @@ import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
 import getErrorMessage from "@/lib/getErrorMessage";
 import { useRouter } from "next/navigation";
+import { ErrorAlert, SuccessAlert, WarningAlert } from "../Alert/Alerts";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -32,17 +33,32 @@ const SignupForm = () => {
       const result = await SignUpUser(data);
 
       if (!result) {
-        console.log("Error in System!");
+        ErrorAlert({
+          title: "Something went wrong",
+          message: "Please try again later",
+        });
       } else if (result.code === "USER_ALREADY_EXIST") {
-        console.log(result.code, result.error);
+        WarningAlert({
+          title: result.error,
+          message: result.message,
+        });
         router.push("/login");
       } else if (result.error) {
-        console.log(getErrorMessage(result.error));
+        ErrorAlert({
+          title: getErrorMessage(result.error),
+          message: result.message || "",
+        });
       } else {
-        console.log("New User Successfully Registered!", result);
+        SuccessAlert({
+          title: "You have successfully registered",
+          message: "Please check your email to verify your account",
+        });
       }
     } catch (error) {
-      console.log(error);
+      ErrorAlert({
+        title: "Something went wrong",
+        message: getErrorMessage(error),
+      });
     }
     setIsSubmitting(false);
   };
