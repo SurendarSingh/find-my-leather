@@ -9,8 +9,10 @@ import Link from "next/link";
 import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
 import getErrorMessage from "@/lib/getErrorMessage";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -26,13 +28,21 @@ const SignupForm = () => {
     setIsSubmitting(true);
     reset();
 
-    const result = await SignUpUser(data);
-    if (!result) {
-      console.log("Error in System!");
-    } else if (result.error) {
-      console.log(getErrorMessage(result.error));
-    } else {
-      console.log("New User Successfully Registered!");
+    try {
+      const result = await SignUpUser(data);
+
+      if (!result) {
+        console.log("Error in System!");
+      } else if (result.code === "USER_ALREADY_EXIST") {
+        console.log(result.code, result.error);
+        router.push("/login");
+      } else if (result.error) {
+        console.log(getErrorMessage(result.error));
+      } else {
+        console.log("New User Successfully Registered!", result);
+      }
+    } catch (error) {
+      console.log(error);
     }
     setIsSubmitting(false);
   };
