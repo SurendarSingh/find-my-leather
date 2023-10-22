@@ -43,8 +43,8 @@ const LoginForm = () => {
         });
       } else if (res.error) {
         ErrorAlert({
-          title: getErrorMessage(res.error),
-          message: "Your Email or Password is incorrect!",
+          title: "Your Email or Password is incorrect!",
+          message: "If you don't have an account, please sign up.",
         });
       } else if (res.ok) {
         SuccessAlert({
