@@ -3,7 +3,7 @@ import "./globals.css";
 import "./data-tables-css.css";
 import "./satoshi.css";
 import { Toaster } from "react-hot-toast";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "../components/SessionProvider";
 
 export default function RootLayout({
   children,
