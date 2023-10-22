@@ -33,7 +33,7 @@ const SignupForm = () => {
       const result = await SignUpUser(data);
 
       if (!result) {
-        ErrorAlert({
+        WarningAlert({
           title: "Something went wrong",
           message: "Please try again later",
         });
@@ -53,6 +53,7 @@ const SignupForm = () => {
           title: "You have successfully registered",
           message: "Please check your email to verify your account",
         });
+        router.push("/");
       }
     } catch (error) {
       ErrorAlert({

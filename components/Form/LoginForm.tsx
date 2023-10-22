@@ -9,6 +9,8 @@ import Link from "next/link";
 import { LogInSchema, LogInType } from "@/lib/AuthSchema";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ErrorAlert, SuccessAlert, WarningAlert } from "../Alert/Alerts";
+import getErrorMessage from "@/lib/getErrorMessage";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -35,15 +37,27 @@ const LoginForm = () => {
       });
 
       if (!res) {
-        console.log("Error in System!");
+        WarningAlert({
+          title: "Something went wrong",
+          message: "Please try again later",
+        });
       } else if (res.error) {
-        console.log("Your Email or Password is incorrect!");
+        ErrorAlert({
+          title: getErrorMessage(res.error),
+          message: "Your Email or Password is incorrect!",
+        });
       } else if (res.ok) {
-        console.log("You're LoggedIn!");
+        SuccessAlert({
+          title: "You're LoggedIn!",
+          message: "You're successfully logged in.",
+        });
         router.push("/");
       }
     } catch (error) {
-      console.log("error", error);
+      ErrorAlert({
+        title: "Something went wrong",
+        message: getErrorMessage(error),
+      });
     }
 
     setIsSubmitting(false);
