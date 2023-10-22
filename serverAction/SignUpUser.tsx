@@ -5,8 +5,6 @@ import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { connectMongoDB } from "@/lib/MongoDB";
 import UserModel from "@/lib/UserModel";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
 
 export async function SignUpUser(data: SignUpType) {
   const result = SignUpSchema.safeParse(data);
@@ -25,7 +23,7 @@ export async function SignUpUser(data: SignUpType) {
     await connectMongoDB();
 
     // Check if user already exist
-    const userExist = await UserModel.findOne({ email });
+    const userExist = await UserModel.findOne({ email }).select("_id");
     if (userExist) {
       return {
         success: false,
@@ -51,19 +49,6 @@ export async function SignUpUser(data: SignUpType) {
 
     // Send verification email
     // await sendVerificationEmail(savedUser);
-
-    // Create and assign a token
-
-    if (!process.env.TOKEN_SECRET) {
-      throw new Error("TOKEN_SECRET not found in .env, Please contact Admin!");
-    }
-
-    const token = await jwt.sign(
-      { _id: savedUser._id, email: savedUser.email },
-      process.env.TOKEN_SECRET!
-    );
-
-    cookies().set("auth-token", token, { httpOnly: true });
 
     const responseData = {
       _id: savedUser._id.toString(),

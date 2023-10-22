@@ -6,10 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
 import Link from "next/link";
-import getErrorMessage from "@/lib/getErrorMessage";
 import { LogInSchema, LogInType } from "@/lib/AuthSchema";
-import { LogInUser } from "@/serverAction/LogInUser";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 const LoginForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -25,14 +27,25 @@ const LoginForm = () => {
     setIsSubmitting(true);
     reset();
 
-    const result = await LogInUser(data);
-    if (!result) {
-      console.log("Error in System!");
-    } else if (result.error) {
-      console.log(getErrorMessage(result.error));
-    } else {
-      console.log("User LoggedIn!");
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (!res) {
+        console.log("Error in System!");
+      } else if (res.error) {
+        console.log("Your Email or Password is incorrect!");
+      } else if (res.ok) {
+        console.log("You're LoggedIn!");
+        router.push("/");
+      }
+    } catch (error) {
+      console.log("error", error);
     }
+
     setIsSubmitting(false);
   };
 

@@ -3,6 +3,7 @@ import "./globals.css";
 import "./data-tables-css.css";
 import "./satoshi.css";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "./AuthProvider";
 
 export default function RootLayout({
   children,
@@ -12,8 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        {children}
-        <Toaster position="top-right" reverseOrder={false} />
+        <AuthProvider>
+          {children}
+          <Toaster position="top-right" reverseOrder={false} />
+        </AuthProvider>
       </body>
     </html>
   );
