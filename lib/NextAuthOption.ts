@@ -4,6 +4,16 @@ import UserModel from "@/lib/UserModel";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
+import { DefaultUser } from "next-auth";
+declare module "next-auth" {
+  interface Session {
+    user?: DefaultUser & { id: string; role: string };
+  }
+  interface User extends DefaultUser {
+    role: string;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -54,7 +64,9 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      session.user.role = token.role;
+      if (session.user) {
+        session.user.role = token.role as string;
+      }
       return session;
     },
   },
