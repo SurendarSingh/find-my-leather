@@ -31,7 +31,7 @@ const UserModelSchema = new mongoose.Schema(
       enum: ["user", "customer", "seller", "agent", "admin", "superAdmin"],
       default: "user",
     },
-    avatar: {
+    image: {
       type: String,
       default: "/images/avatar.png",
     },

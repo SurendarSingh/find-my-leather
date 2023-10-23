@@ -39,6 +39,26 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
+  callbacks: {
+    async jwt({ token, user, trigger, session }) {
+      if (user) {
+        token.role = user.role;
+        token.image = user.image;
+      }
+
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user.role = token.role;
+      return session;
+    },
+  },
+
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
