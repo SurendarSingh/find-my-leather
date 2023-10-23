@@ -3,6 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
 import SignupForm from "@/components/Form/SignupForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/NextAuthOption";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "SignUp to FindMyLeather.com",
@@ -10,7 +13,12 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const SignUp: React.FC = () => {
+const SignUp: React.FC = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session && session.user) {
+    redirect("/");
+  }
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
