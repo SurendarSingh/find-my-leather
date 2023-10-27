@@ -20,7 +20,7 @@ const OrderPage = async () => {
         return fetchedOrderDetails.data;
       }
 
-      redirect("/");
+      return null;
     } catch (error) {
       ErrorAlert({
         title: "Something went wrong",
@@ -31,6 +31,10 @@ const OrderPage = async () => {
   }
 
   const userOrderDetails = await getOrderDetails();
+
+  if (!userOrderDetails) {
+    redirect("/");
+  }
 
   return <OrderTabs userOrderDetails={userOrderDetails} />;
 };
