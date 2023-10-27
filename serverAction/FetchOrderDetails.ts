@@ -3,6 +3,7 @@
 import { connectMongoDB } from "@/lib/MongoDB";
 import UserModel from "@/lib/UserModel";
 import getErrorMessage from "@/lib/getErrorMessage";
+import { Order } from "@/types/orderType";
 
 export async function FetchOrderDetails(userId: string | null | undefined) {
   try {
@@ -15,7 +16,7 @@ export async function FetchOrderDetails(userId: string | null | undefined) {
     // const userOrderDetails = await UserModel.find()
 
     // Sample order details
-    const userOrderDetails = [
+    const userOrderDetails: Order[] = [
       {
         name: "Leather 1",
         price: 0.0,
@@ -54,14 +55,14 @@ export async function FetchOrderDetails(userId: string | null | undefined) {
     ];
 
     // Group the order details by order status
-    const groupedOrders = userOrderDetails.reduce((acc: any, order) => {
+    const groupedOrders = userOrderDetails.reduce((acc, order) => {
       const orderStatus = order.orderStatus;
       if (!acc[orderStatus]) {
         acc[orderStatus] = [];
       }
       acc[orderStatus].push(order);
       return acc;
-    }, {});
+    }, {} as { [orderStatus: string]: Order[] });
 
     return {
       success: true,

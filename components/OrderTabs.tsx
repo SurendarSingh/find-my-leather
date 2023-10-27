@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Order } from "@/types/orderType";
 
 // Function to format the orderStatus
 const formatOrderStatus = (orderStatus: string) => {
@@ -12,7 +13,11 @@ const formatOrderStatus = (orderStatus: string) => {
     .join(" ");
 };
 
-const OrderTabs = ({ userOrderDetails }: any) => {
+const OrderTabs = ({
+  userOrderDetails,
+}: {
+  userOrderDetails: { [orderStatus: string]: Order[] };
+}) => {
   const [selectedOrderStatus, setSelectedOrderStatus] = useState("all");
 
   const handleSelectChange = (event: any) => {
@@ -20,7 +25,7 @@ const OrderTabs = ({ userOrderDetails }: any) => {
   };
 
   const totalOrderCount = Object.values(userOrderDetails).reduce(
-    (total, orders: any) => total + orders.length,
+    (total, orders) => total + orders.length,
     0
   );
 
