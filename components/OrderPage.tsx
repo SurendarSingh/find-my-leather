@@ -22,10 +22,7 @@ const OrderPage = async () => {
 
       return null;
     } catch (error) {
-      ErrorAlert({
-        title: "Something went wrong",
-        message: getErrorMessage(error),
-      });
+      // Error toast
       redirect("/");
     }
   }
@@ -33,6 +30,7 @@ const OrderPage = async () => {
   const userOrderDetails = await getOrderDetails();
 
   if (!userOrderDetails) {
+    // Error toast
     redirect("/");
   }
 
