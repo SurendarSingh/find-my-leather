@@ -3,6 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./node_modules/flowbite-react/**/*.js",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -48,7 +49,7 @@ module.exports = {
       success: "#219653",
       danger: "#D34053",
       warning: "#FFA70B",
-      findmyleather: "#0C8954",
+      findmyleather: "#0d8956",
     },
     screens: {
       "2xsm": "375px",
@@ -255,5 +256,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
