@@ -1,8 +1,8 @@
-"use client";
 import "./globals.css";
 import "./data-tables-css.css";
 import "./satoshi.css";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NextAuthProvider from "@/components/SessionProvider";
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <NextAuthProvider>
           {children}
-          <Toaster position="top-right" reverseOrder={false} />
+          <ToastContainer />
         </NextAuthProvider>
       </body>
     </html>
