@@ -27,7 +27,6 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LogInType> = async (data) => {
     setIsSubmitting(true);
-    reset();
 
     try {
       const res = await signIn("credentials", {
@@ -60,6 +59,7 @@ const LoginForm = () => {
       });
     }
 
+    reset();
     setIsSubmitting(false);
   };
 
@@ -74,7 +74,8 @@ const LoginForm = () => {
             type="email"
             placeholder="Enter your email"
             {...register("email")}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+            disabled={isSubmitting}
+            className="w-full rounded-lg border-2 border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-findmyleather focus:ring-0 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-findmyleather"
           />
 
           <span className="absolute right-4 top-4">
@@ -107,7 +108,8 @@ const LoginForm = () => {
             type="password"
             placeholder="Enter your password"
             {...register("password")}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+            disabled={isSubmitting}
+            className="w-full rounded-lg border-2 border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-findmyleather focus:ring-0 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-findmyleather"
           />
 
           <span className="absolute right-4 top-4">
@@ -141,7 +143,14 @@ const LoginForm = () => {
           type="submit"
           className="flex w-full items-center justify-center gap-3.5 cursor-pointer rounded-lg border border-findmyleather bg-findmyleather p-4 text-white transition hover:bg-opacity-90"
         >
-          Log In {isSubmitting && <Spinner />}
+          {isSubmitting ? (
+            <>
+              Logging In
+              <Spinner />
+            </>
+          ) : (
+            "Log In"
+          )}
         </button>
       </div>
 
