@@ -145,9 +145,9 @@ const LoginForm = () => {
         </button>
       </div>
 
-      <button
+      {/* <button
         disabled={isSubmitting}
-        className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
+        className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-[#EFF4FB] p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
       >
         <span>
           <svg
@@ -183,7 +183,7 @@ const LoginForm = () => {
           </svg>
         </span>
         Sign in with Google
-      </button>
+      </button> */}
 
       <div className="mt-6 text-center">
         <p>
