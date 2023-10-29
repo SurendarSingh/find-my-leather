@@ -10,7 +10,7 @@ export async function SignUpUser(data: SignUpType) {
   const result = SignUpSchema.safeParse(data);
 
   if (!result.success) {
-    return { success: false, error: result.error.format() };
+    return { success: false, error: getErrorMessage(result.error.format()) };
   }
 
   try {
@@ -28,8 +28,7 @@ export async function SignUpUser(data: SignUpType) {
       return {
         success: false,
         code: "USER_ALREADY_EXIST",
-        error: "You have already registered",
-        message: "Please login to your account",
+        error: "You have already registered, Please login to your account!",
       };
     }
 
@@ -63,8 +62,7 @@ export async function SignUpUser(data: SignUpType) {
   } catch (error) {
     return {
       success: false,
-      error: "Something went wrong",
-      message: getErrorMessage(error),
+      error: getErrorMessage(error),
     };
   }
 }

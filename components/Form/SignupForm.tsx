@@ -10,7 +10,7 @@ import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
 import getErrorMessage from "@/lib/getErrorMessage";
 import { useRouter } from "next/navigation";
-import { ErrorAlert, SuccessAlert, WarningAlert } from "../Alert/Alerts";
+import { toast } from "react-toastify";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -32,33 +32,18 @@ const SignupForm = () => {
       const result = await SignUpUser(data);
 
       if (!result) {
-        WarningAlert({
-          title: "Something went wrong",
-          message: "Please try again later",
-        });
+        toast.warn("Something went wrong, Please try again later!");
       } else if (result.code === "USER_ALREADY_EXIST") {
-        WarningAlert({
-          title: result.error,
-          message: result.message,
-        });
+        toast.info(result.error);
         router.push("/login");
-      } else if (result.error) {
-        ErrorAlert({
-          title: getErrorMessage(result.error),
-          message: result.message || "",
-        });
+      } else if (!result.success) {
+        toast.error(result.error);
       } else {
-        SuccessAlert({
-          title: "You have successfully registered",
-          message: "Please check your email to verify your account",
-        });
+        toast.success("You have successfully registered");
         router.push("/");
       }
     } catch (error) {
-      ErrorAlert({
-        title: "Something went wrong",
-        message: getErrorMessage(error),
-      });
+      toast.error(getErrorMessage(error));
     }
     reset();
     setIsSubmitting(false);

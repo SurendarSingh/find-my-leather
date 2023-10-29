@@ -9,8 +9,8 @@ import Link from "next/link";
 import { LogInSchema, LogInType } from "@/lib/AuthSchema";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ErrorAlert, SuccessAlert, WarningAlert } from "../Alert/Alerts";
 import getErrorMessage from "@/lib/getErrorMessage";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -36,27 +36,15 @@ const LoginForm = () => {
       });
 
       if (!res) {
-        WarningAlert({
-          title: "Something went wrong",
-          message: "Please try again later",
-        });
+        toast.warn("Something went wrong, Please try again later!");
       } else if (res.error) {
-        ErrorAlert({
-          title: "Your Email or Password is incorrect!",
-          message: "If you don't have an account, please sign up.",
-        });
+        toast.error("Invalid Email or Password!");
       } else if (res.ok) {
-        SuccessAlert({
-          title: "You're LoggedIn!",
-          message: "You're successfully logged in.",
-        });
+        toast.success("You're LoggedIn!");
         router.push("/");
       }
     } catch (error) {
-      ErrorAlert({
-        title: "Something went wrong",
-        message: getErrorMessage(error),
-      });
+      toast.error(getErrorMessage(error));
     }
 
     reset();
