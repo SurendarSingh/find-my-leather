@@ -3,12 +3,16 @@
 import { connectMongoDB } from "@/lib/MongoDB";
 import UserModel from "@/lib/UserModel";
 import getErrorMessage from "@/lib/getErrorMessage";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/NextAuthOption";
 import { Order } from "@/types/orderType";
 
-export async function FetchOrderDetails(userId: string | null | undefined) {
+export async function FetchOrderDetails() {
   try {
-    if (!userId) {
-      return { success: false, error: "User Details not found" };
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return { success: false, error: "You're not Logged In, Please Log In!" };
     }
 
     // await connectMongoDB();
