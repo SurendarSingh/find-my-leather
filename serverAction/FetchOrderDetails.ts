@@ -71,8 +71,7 @@ export async function FetchOrderDetails(userId: string | null | undefined) {
   } catch (error) {
     return {
       success: false,
-      error: "Something went wrong",
-      message: getErrorMessage(error),
+      error: getErrorMessage(error),
     };
   }
 }

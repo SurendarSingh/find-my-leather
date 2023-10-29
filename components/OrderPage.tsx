@@ -1,11 +1,11 @@
 import React from "react";
 import { authOptions } from "@/lib/NextAuthOption";
-import getErrorMessage from "@/lib/getErrorMessage";
 import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { ErrorAlert } from "./Alert/Alerts";
 import OrderTabs from "./OrderTabs";
+import getErrorMessage from "@/lib/getErrorMessage";
+// import { toast } from "react-toastify";
 
 const OrderPage = async () => {
   async function getOrderDetails() {
@@ -16,21 +16,24 @@ const OrderPage = async () => {
 
       const fetchedOrderDetails = await FetchOrderDetails(userEmail);
 
+      if (fetchedOrderDetails.error) {
+        // toast.error(fetchedOrderDetails.error);
+        redirect("/");
+      }
+
       if (fetchedOrderDetails.success) {
         return fetchedOrderDetails.data;
       }
-
-      return null;
     } catch (error) {
-      // Error toast
-      redirect("/");
+      console.log(getErrorMessage(error));
     }
+    return null;
   }
 
   const userOrderDetails = await getOrderDetails();
 
   if (!userOrderDetails) {
-    // Error toast
+    // toast.error("Something went wrong, Please try again later!");
     redirect("/");
   }
 
