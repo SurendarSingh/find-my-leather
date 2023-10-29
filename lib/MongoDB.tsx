@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import getErrorMessage from "./getErrorMessage";
 
 export async function connectMongoDB() {
   try {
@@ -21,6 +22,6 @@ export async function connectMongoDB() {
     // console.log("MongoDB database connection established successfully");
   } catch (err) {
     // console.log("Error connecting to MongoDB: " + err);
-    throw new Error(err + ", Please contact Admin!");
+    throw new Error("connectMongoDB : " + getErrorMessage(err));
   }
 }

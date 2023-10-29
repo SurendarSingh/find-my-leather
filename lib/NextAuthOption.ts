@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 
           return userExist;
         } catch (error) {
-          console.log("Next auth error: ", error);
+          console.log("Next auth", error);
           return null;
         }
       },
