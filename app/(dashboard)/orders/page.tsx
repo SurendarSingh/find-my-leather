@@ -1,5 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import OrderPage from "@/components/OrderPage";
+import OrderTabs from "@/components/DataTable/OrderTabs";
+import ErrorPage from "@/components/ErrorPage";
+import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,10 +11,16 @@ export const metadata: Metadata = {
 };
 
 const Orders = async () => {
+  const userOrderDetails = await FetchOrderDetails();
+
   return (
     <>
       <Breadcrumb pageName="Order Detials" />
-      <OrderPage />
+      {userOrderDetails.success && userOrderDetails.data != undefined ? (
+        <OrderTabs userOrderDetails={userOrderDetails.data} />
+      ) : (
+        <ErrorPage message={userOrderDetails.error} />
+      )}
     </>
   );
 };
