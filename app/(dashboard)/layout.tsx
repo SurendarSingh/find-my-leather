@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Loader/Loader";
 
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header/Header";
