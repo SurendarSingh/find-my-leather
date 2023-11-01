@@ -1,9 +1,10 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Loader from "@/components/Loader";
 
 import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 export default function RootLayout({
   children,

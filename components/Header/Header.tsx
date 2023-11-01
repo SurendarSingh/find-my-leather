@@ -58,16 +58,19 @@ const Header = (props: {
 
           <Link className="block flex-shrink-0 lg:hidden" href="/">
             <Image
-              width={32}
-              height={32}
-              src={"/images/findmyleather/Logo-white-bg.jpg"}
+              width={40}
+              height={40}
+              src={"/images/findmyleather/Logo-Trans-bg.png"}
               alt="Logo"
             />
           </Link>
         </div>
 
         <div className="hidden sm:block">
-          <form action="https://formbold.com/s/unique_form_id" method="POST">
+          <h4 className="hidden md:block text-2xl font-semibold text-center text-black dark:text-white">
+            Customer Order Management System
+          </h4>
+          {/* <form>
             <div className="relative">
               <button className="absolute left-0 top-1/2 -translate-y-1/2">
                 <svg
@@ -96,10 +99,10 @@ const Header = (props: {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pl-9 pr-4 font-medium focus:outline-none xl:w-125"
+                className="w-full bg-transparent pl-9 pr-4 border-0 focus:ring-0 font-medium focus:outline-none xl:w-125"
               />
             </div>
-          </form>
+          </form> */}
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
@@ -109,7 +112,7 @@ const Header = (props: {
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
-            {/* <DropdownNotification /> */}
+            <DropdownNotification />
             {/* <!-- Notification Menu Area --> */}
 
             {/* <!-- Chat Notification Area --> */}

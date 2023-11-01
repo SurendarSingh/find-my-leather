@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 
 const DropdownUser = () => {
   const { data: session, status } = useSession();
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -56,7 +55,7 @@ const DropdownUser = () => {
           <Image
             width={112}
             height={112}
-            src={"/images/user/user-01.png"}
+            src={session?.user?.image || "/images/user/defaultUser.png"}
             alt="User"
           />
         </span>
@@ -90,8 +89,8 @@ const DropdownUser = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              href="/"
-              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              href="/profile"
+              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-findmyleather lg:text-base"
             >
               <svg
                 className="fill-current"
@@ -113,7 +112,7 @@ const DropdownUser = () => {
               My Profile
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               href="#"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -133,10 +132,10 @@ const DropdownUser = () => {
               </svg>
               My Contacts
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link
-              href="/"
+              href="/pages/settings"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -158,10 +157,10 @@ const DropdownUser = () => {
               </svg>
               Account Settings
             </Link>
-          </li>
+          </li> */}
         </ul>
         <button
-          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-findmyleather lg:text-base"
           onClick={() => signOut()}
         >
           <svg
