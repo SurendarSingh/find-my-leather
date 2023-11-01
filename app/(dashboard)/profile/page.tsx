@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import ErrorPage from "@/components/ErrorPage";
+import ErrorPage from "@/components/ErrorPage/ErrorPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

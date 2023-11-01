@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import OrderTabs from "@/components/DataTable/OrderTabs";
-import ErrorPage from "@/components/ErrorPage";
+import ErrorPage from "@/components/ErrorPage/ErrorPage";
 import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
 import { Metadata } from "next";
 
