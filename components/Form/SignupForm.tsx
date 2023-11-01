@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "../Spinner";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "./ErrorMessage";
 import Link from "next/link";
 import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
