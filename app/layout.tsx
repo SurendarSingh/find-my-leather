@@ -3,7 +3,7 @@ import "./data-tables-css.css";
 import "./satoshi.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NextAuthProvider from "@/components/SessionProvider";
+import NextAuthProvider from "@/components/Context/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/NextAuthOption";
 
