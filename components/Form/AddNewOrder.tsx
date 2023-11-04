@@ -19,6 +19,7 @@ import {
   shippingMethod,
   shippingTerms,
 } from "@/lib/order/DefaultOrderValues";
+import { AddNewOrder } from "@/serverAction/AddNewOrder";
 
 const AddNewOrderForm = ({
   customerList,
@@ -45,23 +46,29 @@ const AddNewOrderForm = ({
   const onSubmit: SubmitHandler<OrderType> = async (data) => {
     setIsFormProcessing(true);
     setIsFormEnabled(false);
+    let temp = false;
     try {
-      const res: any = null;
+      const res = await AddNewOrder(data);
 
       if (!res) {
         toast.warn("Something went wrong, Please try again later!");
       } else if (res.error) {
-        toast.error("Invalid Email or Password!");
-      } else if (res.ok) {
-        toast.success("You're LoggedIn!");
-        router.push("/");
+        toast.error(res.error);
+      } else if (res.success) {
+        temp = true;
+        toast.success(res.message);
       }
     } catch (error) {
       toast.error(getErrorMessage(error));
     } finally {
-      reset();
       setIsFormProcessing(false);
-      setIsOrderIdGenerated(false);
+
+      if (temp) {
+        reset();
+        setIsOrderIdGenerated(false);
+      } else {
+        setIsFormEnabled(true);
+      }
     }
   };
 
@@ -134,9 +141,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("customerId")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Customer
                 </option>
                 {customerList.map((customer) => (
@@ -239,9 +247,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("selection")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Selection
                 </option>
                 {selection.map((item) => (
@@ -280,9 +289,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("shippingTerms")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Shipping Terms
                 </option>
                 {shippingTerms.map((item) => (
@@ -303,9 +313,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("shippingMethod")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Shipping Method
                 </option>
                 {shippingMethod.map((item) => (
@@ -324,9 +335,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("complianceCertificates")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Compliance Certificates
                 </option>
                 {complianceCertificates.map((item) => (
@@ -349,9 +361,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("paymentTerms")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Payment Terms
                 </option>
                 {paymentTerms.map((item) => (
@@ -442,9 +455,10 @@ const AddNewOrderForm = ({
               <select
                 className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                 disabled={!isFormEnabled}
+                defaultValue={""}
                 {...register("orderStatus")}
               >
-                <option value="" selected disabled hidden>
+                <option value="" disabled hidden>
                   Choose Payment Terms
                 </option>
                 {orderStatus.map((item) => (

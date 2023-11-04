@@ -31,6 +31,12 @@ const UserModelSchema = new mongoose.Schema(
       enum: ["user", "customer", "seller", "agent", "admin", "superAdmin"],
       default: "user",
     },
+    customers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     image: {
       type: String,
     },

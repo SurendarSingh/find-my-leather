@@ -17,6 +17,14 @@ const OrderModelSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    customerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    sellerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     rfqDate: { type: Date, required: true },
     article: { type: String, required: true, trim: true },
     colour: { type: String, required: true, trim: true },
@@ -36,7 +44,6 @@ const OrderModelSchema = new mongoose.Schema(
     quantity: { type: Number, required: true },
     pricePerSqFt: { type: Number, required: true },
     totalOrderValue: { type: Number, required: true },
-    supplier: { type: String, required: true, trim: true },
     expectedDeliveryDate: { type: Date, required: true },
     orderStatus: { type: String, enum: orderStatus, required: true },
   },

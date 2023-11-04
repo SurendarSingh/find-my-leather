@@ -15,19 +15,13 @@ export async function GenerateOrderId() {
 
     const prefix = `${day}${month}${year}`;
 
-    // console.log("prefix", prefix);
-
     // Fetch the highest orderId for today from the database
     const order = await OrderModel.find({ orderId: new RegExp("^" + prefix) })
       .sort({ orderId: -1 })
       .limit(1)
       .exec();
 
-    // console.log("order", order);
-
     const latestOrderId = order.length > 0 ? order[0].orderId : null;
-
-    // console.log("latestOrderId", latestOrderId);
 
     let orderId;
     if (latestOrderId) {

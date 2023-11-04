@@ -14,33 +14,31 @@ export async function FetchCustomerList() {
       return { success: false, error: "You're not Logged In, Please Log In!" };
     }
 
-    // await connectMongoDB();
+    if (session.user?.role !== "seller") {
+      return {
+        success: false,
+        error: "You're not Authorized to perform this action!",
+      };
+    }
 
-    // const userOrderDetails = await UserModel.find()
+    await connectMongoDB();
 
-    // Sample order details
-    const customerList = [
-      {
-        name: "Customer 1",
-        email: "customer1@findmyleather.com",
-        id: "1",
-      },
-      {
-        name: "Customer 2",
-        email: "customer2@findmyleather.com",
-        id: "2",
-      },
-      {
-        name: "Customer 3",
-        email: "customer3@findmyleather.com",
-        id: "3",
-      },
-      {
-        name: "Customer 4",
-        email: "customer5@findmyleather.com",
-        id: "4",
-      },
-    ];
+    const sellerCustomers = await UserModel.findById(session.user?.id, {
+      customers: 1,
+    }).populate("customers", "name email id");
+
+    if (!sellerCustomers) {
+      return {
+        success: false,
+        error: "No Customer Found!",
+      };
+    }
+
+    const customerList = sellerCustomers.customers.map((customer: any) => ({
+      name: customer.name,
+      email: customer.email,
+      id: customer._id.toString(),
+    }));
 
     const userData = {
       sellerId: session.user?.id,
