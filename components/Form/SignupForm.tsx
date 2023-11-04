@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
 import Link from "next/link";
-import { SignUpSchema, SignUpType } from "@/lib/AuthSchema";
+import { SignUpSchema, SignUpType } from "@/lib/user/AuthSchema";
 import { SignUpUser } from "@/serverAction/SignUpUser";
 import getErrorMessage from "@/lib/getErrorMessage";
 import { useRouter } from "next/navigation";

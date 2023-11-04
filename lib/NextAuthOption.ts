@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import { connectMongoDB } from "@/lib/MongoDB";
-import UserModel from "@/lib/UserModel";
+import UserModel from "@/lib/user/UserModel";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 

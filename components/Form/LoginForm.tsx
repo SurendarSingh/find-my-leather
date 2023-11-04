@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "./Spinner";
 import ErrorMessage from "./ErrorMessage";
 import Link from "next/link";
-import { LogInSchema, LogInType } from "@/lib/AuthSchema";
+import { LogInSchema, LogInType } from "@/lib/user/AuthSchema";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import getErrorMessage from "@/lib/getErrorMessage";

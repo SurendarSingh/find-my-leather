@@ -33,7 +33,6 @@ const UserModelSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "/images/avatar.png",
     },
     isEmailVerified: {
       type: Boolean,

@@ -1,7 +1,7 @@
 "use server";
 
 import { connectMongoDB } from "@/lib/MongoDB";
-import UserModel from "@/lib/UserModel";
+import UserModel from "@/lib/user/UserModel";
 import getErrorMessage from "@/lib/getErrorMessage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/NextAuthOption";
