@@ -8,26 +8,38 @@ import {
   shippingTerms,
 } from "./DefaultOrderValues";
 
+const trimmedString = z
+  .string()
+  .trim()
+  .refine((value) => value !== "", "This field is required");
+const positiveNumber = z.number().min(1, "Must be greater than 0");
+const nonEmptyEnum = (values: readonly [string, ...string[]]) =>
+  z.enum(values).refine((value) => value !== null, "This field is required");
+const nonNullDate = z
+  .date()
+  .refine((value) => value !== null, "This field is required");
+
 export const OrderSchema = z.object({
-  orderId: z.string().trim(),
-  rfqDate: z.date(),
-  article: z.string().trim(),
-  colour: z.string().trim(),
-  size: z.number(),
-  thickness: z.number(),
-  selection: z.enum(selection),
-  estimatedShipmentDate: z.date(),
-  shippingTerms: z.enum(shippingTerms),
-  shippingMethod: z.enum(shippingMethod),
-  complianceCertificates: z.enum(complianceCertificates),
+  orderId: trimmedString,
+  customerId: trimmedString,
+  sellerId: trimmedString,
+  rfqDate: nonNullDate,
+  article: trimmedString,
+  colour: trimmedString,
+  size: positiveNumber,
+  thickness: positiveNumber,
+  selection: nonEmptyEnum(selection),
+  estimatedShipmentDate: nonNullDate,
+  shippingTerms: nonEmptyEnum(shippingTerms),
+  shippingMethod: nonEmptyEnum(shippingMethod),
+  complianceCertificates: nonEmptyEnum(complianceCertificates),
   specialRequirement: z.string().trim().optional(),
-  paymentTerms: z.enum(paymentTerms),
-  quantity: z.number(),
-  pricePerSqFt: z.number(),
-  totalOrderValue: z.number(),
-  supplier: z.string().trim(),
-  expectedDeliveryDate: z.date(),
-  orderStatus: z.enum(orderStatus),
+  paymentTerms: nonEmptyEnum(paymentTerms),
+  quantity: positiveNumber,
+  pricePerSqFt: positiveNumber,
+  totalOrderValue: positiveNumber,
+  expectedDeliveryDate: nonNullDate,
+  orderStatus: nonEmptyEnum(orderStatus),
 });
 
 export type OrderType = z.infer<typeof OrderSchema>;
