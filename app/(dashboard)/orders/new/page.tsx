@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ErrorPage from "@/components/ErrorPage/ErrorPage";
-import AddNewOrderForm from "@/components/Form/AddNewOrder";
+import AddNewOrderForm from "@/components/Form/AddNewOrderForm";
 import { FetchCustomerList } from "@/serverAction/FetchCustomerList";
 import { Metadata } from "next";
 

@@ -17,7 +17,8 @@ const Orders = async () => {
     <>
       <Breadcrumb pageName="Order Detials" />
       {userOrderDetails.success && userOrderDetails.data != undefined ? (
-        <OrderTabs userOrderDetails={userOrderDetails.data} />
+        // <OrderTabs userOrderDetails={userOrderDetails.data} />
+        <ErrorPage message="Under Construction" />
       ) : (
         <ErrorPage message={userOrderDetails.error} />
       )}
