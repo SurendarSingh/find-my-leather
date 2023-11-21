@@ -1,7 +1,7 @@
 "use server";
 
 import getErrorMessage from "@/lib/getErrorMessage";
-import { SignUpSchema, SignUpType } from "@/lib/user/AuthSchema";
+import { SignUpSchema, SignUpType } from "@/lib/user/UserSchema";
 import { connectMongoDB } from "@/lib/MongoDB";
 import UserModel from "@/lib/user/UserModel";
 import bcrypt from "bcryptjs";

@@ -36,3 +36,15 @@ export const LogInSchema = z.object({
 });
 
 export type LogInType = z.infer<typeof LogInSchema>;
+
+export const InviteUser = z.object({
+  customerName: z
+    .string()
+    .trim()
+    .min(4, "Name must contain at least 4 characters")
+    .max(20, "Name must contain at most 20 characters")
+    .transform((name) => name.replace(/\b\w/g, (char) => char.toUpperCase())),
+  customerEmail: z.string().trim().email("Invalid email address"),
+});
+
+export type InviteUserType = z.infer<typeof InviteUser>;

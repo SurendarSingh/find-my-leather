@@ -1,7 +1,7 @@
 "use server";
 
 import getErrorMessage from "@/lib/getErrorMessage";
-import { LogInSchema, LogInType } from "@/lib/user/AuthSchema";
+import { LogInSchema, LogInType } from "@/lib/user/UserSchema";
 
 export async function LogInUser(data: LogInType) {
   const result = LogInSchema.safeParse(data);
