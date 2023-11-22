@@ -41,6 +41,8 @@ export async function SignUpUser(data: SignUpType) {
       name,
       email,
       password: hashedPassword,
+      isPasswordSet: true,
+      accountCreationMode: "signup",
     });
 
     // Save user

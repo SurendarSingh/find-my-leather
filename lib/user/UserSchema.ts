@@ -7,7 +7,11 @@ export const SignUpSchema = z
       .trim()
       .min(4, "Name must contain at least 4 characters")
       .max(20, "Name must contain at most 20 characters"),
-    email: z.string().trim().email("Invalid email address"),
+    email: z
+      .string()
+      .trim()
+      .email("Invalid email address")
+      .transform((email) => email.toLowerCase()),
     password: z
       .string()
       .trim()
@@ -27,7 +31,11 @@ export const SignUpSchema = z
 export type SignUpType = z.infer<typeof SignUpSchema>;
 
 export const LogInSchema = z.object({
-  email: z.string().trim().email("Invalid email address"),
+  email: z
+    .string()
+    .trim()
+    .email("Invalid email address")
+    .transform((email) => email.toLowerCase()),
   password: z
     .string()
     .trim()
@@ -37,14 +45,18 @@ export const LogInSchema = z.object({
 
 export type LogInType = z.infer<typeof LogInSchema>;
 
-export const InviteUser = z.object({
+export const InviteCustomerSchema = z.object({
   customerName: z
     .string()
     .trim()
     .min(4, "Name must contain at least 4 characters")
     .max(20, "Name must contain at most 20 characters")
     .transform((name) => name.replace(/\b\w/g, (char) => char.toUpperCase())),
-  customerEmail: z.string().trim().email("Invalid email address"),
+  customerEmail: z
+    .string()
+    .trim()
+    .email("Invalid email address")
+    .transform((email) => email.toLowerCase()),
 });
 
-export type InviteUserType = z.infer<typeof InviteUser>;
+export type InviteCustomerType = z.infer<typeof InviteCustomerSchema>;

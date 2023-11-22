@@ -145,7 +145,7 @@ const AddNewOrderForm = ({
                 <label className="mb-2.5 block text-black dark:text-white">
                   Select Customer <span className="text-meta-1">*</span>
                 </label>
-                <div className="flex items-center gap-4">
+                <div className="sm:flex items-center gap-4">
                   <select
                     className="w-full rounded border-2 border-stroke bg-transparent py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-whiter dark:disabled:bg-strokedark dark:border-form-strokedark dark:bg-form-input focus:ring-0 focus:border-findmyleather focus:focus:border-findmyleather"
                     disabled={isFormProcessing}
@@ -162,7 +162,7 @@ const AddNewOrderForm = ({
                     ))}
                   </select>
                   <button
-                    className="inline-flex whitespace-nowrap items-center justify-center gap-3.5 cursor-pointer rounded-md bg-findmyleather py-3 px-4 text-center font-medium text-white transition hover:bg-opacity-90 disabled:bg-bodydark"
+                    className="max-sm:w-full max-sm:mt-2 inline-flex whitespace-nowrap items-center justify-center gap-3.5 cursor-pointer rounded-md bg-findmyleather py-3 px-4 text-center font-medium text-white transition hover:bg-opacity-90 disabled:bg-bodydark"
                     type="button"
                     onClick={() => {
                       setaddNewCustomer(true);

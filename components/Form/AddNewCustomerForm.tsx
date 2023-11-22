@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  NewCustomerSchema,
-  NewCustomerType,
-} from "@/lib/user/NewCustomerSchema";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "./Spinner";
+import { toast } from "react-toastify";
+import { InviteNewCustomer } from "@/serverAction/InviteNewCustomer";
+import getErrorMessage from "@/lib/getErrorMessage";
+import {
+  InviteCustomerSchema,
+  InviteCustomerType,
+} from "@/lib/user/UserSchema";
 
 const AddNewCustomerForm = ({
   addNewCustomer,
@@ -22,16 +25,28 @@ const AddNewCustomerForm = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<NewCustomerType>({
-    resolver: zodResolver(NewCustomerSchema),
+  } = useForm<InviteCustomerType>({
+    resolver: zodResolver(InviteCustomerSchema),
   });
 
-  const onSubmit: SubmitHandler<NewCustomerType> = async (data) => {
+  const onSubmit: SubmitHandler<InviteCustomerType> = async (data) => {
     setIsFormSubmitting(true);
     try {
-      console.log("NewCustomerData", data);
+      const res = await InviteNewCustomer(data);
+
+      if (!res) {
+        toast.warn("Something went wrong, Please try again later!");
+      } else if (res.error) {
+        toast.error(res.error);
+      } else if (res.success) {
+        toast.success(res.message);
+      }
     } catch (error) {
-      console.log("NewCustomerError", error);
+      toast.error(getErrorMessage(error));
+    } finally {
+      setIsFormSubmitting(false);
+      reset();
+      setaddNewCustomer(false);
     }
   };
 
@@ -95,7 +110,7 @@ const AddNewCustomerForm = ({
                 </label>
                 <input
                   type="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-findmyleather focus:border-findmyleather block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-findmyleather dark:focus:border-findmyleather"
+                  className="lowercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-findmyleather focus:border-findmyleather block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-findmyleather dark:focus:border-findmyleather"
                   placeholder="Customer Email Id"
                   required
                   {...register("customerEmail")}

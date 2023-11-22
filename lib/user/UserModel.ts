@@ -24,25 +24,51 @@ const UserModelSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please enter your password"],
+      required: [
+        function (this: any) {
+          return this.isPasswordSet;
+        },
+        "Please enter your password",
+      ],
+    },
+    isPasswordSet: {
+      type: Boolean,
+      default: false,
     },
     role: {
       type: String,
       enum: ["user", "customer", "seller", "agent", "admin", "superAdmin"],
       default: "user",
     },
-    customers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    linkedCustomers: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      default: undefined,
+    },
     image: {
       type: String,
+      default: "",
     },
     isEmailVerified: {
       type: Boolean,
       default: false,
+    },
+    accountCreationMode: {
+      type: String,
+      enum: ["invited", "signup"],
+      required: true,
+    },
+    invitedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    invitedByRole: {
+      type: String,
+      enum: ["agent", "seller", "customer", "admin"],
     },
     verifyToken: String,
     verifyTokenExpiry: Date,

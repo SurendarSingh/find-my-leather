@@ -24,21 +24,20 @@ export async function FetchCustomerList() {
     await connectMongoDB();
 
     const sellerCustomers = await UserModel.findById(session.user?.id, {
-      customers: 1,
-    }).populate("customers", "name email id");
+      linkedCustomers: 1,
+    }).populate("linkedCustomers", "name email id");
 
-    if (!sellerCustomers) {
-      return {
-        success: false,
-        error: "No Customer Found!",
-      };
+    if (!sellerCustomers.linkedCustomers) {
+      sellerCustomers.linkedCustomers = [];
     }
 
-    const customerList = sellerCustomers.customers.map((customer: any) => ({
-      name: customer.name,
-      email: customer.email,
-      id: customer._id.toString(),
-    }));
+    const customerList = sellerCustomers.linkedCustomers.map(
+      (customer: any) => ({
+        name: customer.name,
+        email: customer.email,
+        id: customer._id.toString(),
+      })
+    );
 
     const userData = {
       sellerId: session.user?.id,
