@@ -64,7 +64,7 @@ const ProgressSteps = () => {
   return (
     <div className="w-full max-w-600 mx-0 my-auto px-0 py-4">
       <div className="flex justify-between mt-5 relative">
-        <div className="absolute bg-stroke h-1 w-full top-1/2 transform -translate-y-1/2 left-0"></div>
+        <div className="absolute bg-stroke h-1 w-full top-1/2 transform -translate-y-1/2 left-0 dark:bg-meta-4"></div>
         <div
           className="absolute bg-findmyleather h-1 top-1/2 transform -translate-y-1/2 left-0 transition-all duration-400 ease-in-out"
           style={{ width }}
@@ -72,8 +72,10 @@ const ProgressSteps = () => {
         {steps.map(({ step, label }) => (
           <div className="relative z-1" key={step}>
             <div
-              className={`w-10 h-10 rounded-full bg-white border-4 border-solid ${
-                activeStep >= step ? "border-findmyleather" : "border-stroke"
+              className={`w-10 h-10 rounded-full bg-white dark:bg-boxdark border-4 border-solid ${
+                activeStep >= step
+                  ? "border-findmyleather"
+                  : "border-stroke dark:border-meta-4"
               } transition-all duration-400 ease-in-out flex justify-center items-center`}
             >
               {activeStep > step ? (
@@ -94,7 +96,10 @@ const ProgressSteps = () => {
               )}
             </div>
             <div className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <span className="text-lg text-form-input sm:text-base" key={step}>
+              <span
+                className="text-lg text-form-input dark:text-white sm:text-base"
+                key={step}
+              >
                 {label}
               </span>
             </div>
