@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import SidebarLinkGroup from "./SidebarLinkGroup";
+import { useSession } from "next-auth/react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -10,6 +12,8 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname();
+
+  const { data: session, status } = useSession();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -176,34 +180,134 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item RFQ --> */}
 
-              {/* <!-- Menu Item Order Details --> */}
-              <li>
-                <Link
-                  href="/orders"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("orders") && "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <svg
-                    className="fill-current"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              {
+                session?.user?.role === "seller" ? (
+                  /* <!-- Menu Item Order Details for Seller --> */
+                  <SidebarLinkGroup
+                    activeCondition={
+                      pathname === "/orders" || pathname.includes("orders")
+                    }
                   >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm1-4H5m0 0L3 4m0 0h5.501M3 4l-.792-3H1m11 3h6m-3 3V1"
-                    />
-                  </svg>
-                  Order Details
-                </Link>
-              </li>
-              {/* <!-- Menu Item Order Details --> */}
+                    {(handleClick, open) => {
+                      return (
+                        <React.Fragment>
+                          <Link
+                            href="/orders"
+                            className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                              (pathname === "/orders" ||
+                                pathname.includes("orders")) &&
+                              "bg-graydark dark:bg-meta-4"
+                            }`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              sidebarExpanded
+                                ? handleClick()
+                                : setSidebarExpanded(true);
+                            }}
+                          >
+                            <svg
+                              className="fill-current"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 18 18"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm1-4H5m0 0L3 4m0 0h5.501M3 4l-.792-3H1m11 3h6m-3 3V1"
+                              />
+                            </svg>
+                            Order Details
+                            <svg
+                              className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
+                                open && "rotate-180"
+                              }`}
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                                fill=""
+                              />
+                            </svg>
+                          </Link>
+                          {/* <!-- Dropdown Menu Start --> */}
+                          <div
+                            className={`translate transform overflow-hidden ${
+                              !open && "hidden"
+                            }`}
+                          >
+                            <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                              <li>
+                                <Link
+                                  href="/orders"
+                                  className={`first-letter:group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                    pathname === "/orders" && "text-white"
+                                  }`}
+                                >
+                                  All Orders
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  href="/orders/new"
+                                  className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                    pathname === "/orders/new" && "text-white"
+                                  }`}
+                                >
+                                  New Order
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                          {/* <!-- Dropdown Menu End --> */}
+                        </React.Fragment>
+                      );
+                    }}
+                  </SidebarLinkGroup>
+                ) : (
+                  /* <!-- Menu Item Order Details for Seller --> */
+
+                  /* <!-- Menu Item Order Details for Customer --> */
+                  <li>
+                    <Link
+                      href="/orders"
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("orders") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <svg
+                        className="fill-current"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm1-4H5m0 0L3 4m0 0h5.501M3 4l-.792-3H1m11 3h6m-3 3V1"
+                        />
+                      </svg>
+                      Order Details
+                    </Link>
+                  </li>
+                )
+                /* <!-- Menu Item Order Details for Customer --> */
+              }
 
               {/* <!-- Menu Item Production Tracking --> */}
               <li>
