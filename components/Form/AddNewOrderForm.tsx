@@ -162,21 +162,14 @@ const AddNewOrderForm = ({
                     ))}
                   </select>
                   <button
-                    className="max-sm:w-full max-sm:mt-2 inline-flex whitespace-nowrap items-center justify-center gap-3.5 cursor-pointer rounded-md bg-findmyleather py-3 px-4 text-center font-medium text-white transition hover:bg-opacity-90 disabled:bg-bodydark"
+                    className="max-sm:w-full max-sm:mt-2 inline-flex whitespace-nowrap items-center justify-center gap-3.5 cursor-pointer rounded-md bg-findmyleather py-3 px-4 text-center font-medium text-white transition hover:bg-opacity-90 disabled:cursor-default disabled:text-body disabled:bg-whiter dark:disabled:bg-strokedark"
                     type="button"
                     onClick={() => {
                       setaddNewCustomer(true);
                     }}
                     disabled={isFormProcessing}
                   >
-                    {!isOrderIdGenerated && isFormProcessing ? (
-                      <>
-                        Adding New Customer
-                        <Spinner />
-                      </>
-                    ) : (
-                      "+ New Customer"
-                    )}
+                    + New Customer
                   </button>
                 </div>
                 <ErrorMessage>{errors.customerId?.message}</ErrorMessage>
