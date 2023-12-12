@@ -22,7 +22,12 @@ export async function InviteNewCustomer(data: InviteCustomerType) {
 
   try {
     const session = await getServerSession(authOptions);
-
+    if(session?.user?.email === customerEmail) { 
+      return {
+        success: false,
+        error: "You cannot invite yourself as a customer.",
+      };
+    }
     await connectMongoDB();
 
     let responseMessage = "";

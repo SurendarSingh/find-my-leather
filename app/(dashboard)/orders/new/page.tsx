@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const AddNewOrder = async () => {
   const res = await FetchCustomerList();
-
+  console.log(res);
   return (
     <>
       <Breadcrumb pageName="Add New Order" />

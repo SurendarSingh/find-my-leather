@@ -1,6 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import OrderTabs from "@/components/DataTable/OrderTabs";
-import ErrorPage from "@/components/ErrorPage/ErrorPage";
+import OrderTable from "@/components/DataTable/OrderTable";
 import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
 import { Metadata } from "next";
 
@@ -11,19 +10,16 @@ export const metadata: Metadata = {
 };
 
 const Orders = async () => {
-  const userOrderDetails = await FetchOrderDetails();
-
-  return (
-    <>
-      <Breadcrumb pageName="Order Detials" />
-      {userOrderDetails.success && userOrderDetails.data != undefined ? (
-        // <OrderTabs userOrderDetails={userOrderDetails.data} />
-        <ErrorPage message="Under Construction" />
-      ) : (
-        <ErrorPage message={userOrderDetails.error} />
-      )}
+  const FetchedUserOrderDetails = await FetchOrderDetails();
+ 
+  if(FetchedUserOrderDetails.success && FetchedUserOrderDetails.data != undefined){
+    return (
+      <>
+      <Breadcrumb pageName="Order Detials" />     
+      <OrderTable UserOrderDetails = {FetchedUserOrderDetails.data}/>  
     </>
   );
+}
 };
 
 export default Orders;
