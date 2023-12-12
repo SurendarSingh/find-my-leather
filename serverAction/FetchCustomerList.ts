@@ -41,7 +41,8 @@ export async function FetchCustomerList() {
 
     const userData = {
       sellerId: session.user?.id,
-      customerList: customerList,
+      // customerList: customerList
+      customerList: customerList.filter((user: any) => user.email !== session.user?.email),
     };
 
     return {

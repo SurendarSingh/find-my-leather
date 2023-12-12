@@ -3,6 +3,7 @@ export const shippingTerms = ["FOB"] as const;
 export const shippingMethod = ["Sea"] as const;
 export const complianceCertificates = ["LWG"] as const;
 export const paymentTerms = ["CAD"] as const;
+
 export const orderStatus = [
   "Supplier Matching",
   "Sample Request",
@@ -35,4 +36,5 @@ export const orderDetailsFields = [
   "totalOrderValue",
   "expectedDeliveryDate",
   "orderStatus",
+  "documents"
 ];

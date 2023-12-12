@@ -1,5 +1,8 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ErrorPage from "@/components/ErrorPage/ErrorPage";
+import OrderDocuments from "@/components/OrderDocuments/OrderDocuments";
+import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
+import { SignUpUser } from "@/serverAction/SignUpUser";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,10 +12,13 @@ export const metadata: Metadata = {
 };
 
 const Documents = async () => {
+  const FetchedUserOrderDetails = await FetchOrderDetails();
+  
   return (
     <>
       <Breadcrumb pageName="Order Documents" />
-      <ErrorPage message="This page is under construction. Please check back later." />
+      <OrderDocuments UserOrderDetails={FetchedUserOrderDetails.data} />
+      {/* <ErrorPage message="This page is under construction. Please check back later." /> */}
     </>
   );
 };

@@ -1,5 +1,9 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ErrorPage from "@/components/ErrorPage/ErrorPage";
+import PaymentTable from "@/components/DataTable/PaymentTable";
+import { FetchCustomerList } from "@/serverAction/FetchCustomerList";
+import { FetchOrderDetails } from "@/serverAction/FetchOrderDetails";
+import { FetchPaymentDetails } from "@/serverAction/FetchPaymentDetails";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,10 +13,26 @@ export const metadata: Metadata = {
 };
 
 const Payment = async () => {
+  const userOrderDetails = await FetchOrderDetails();
+  const res = await FetchCustomerList();
+  const paymentDetails = await FetchPaymentDetails();
+  
+
+  console.log('====================================');
+  console.log(res);
+  console.log('====================================');;
+  
+
   return (
     <>
       <Breadcrumb pageName="Payment Details" />
-      <ErrorPage message="This page is under construction. Please check back later." />
+      { res && res.data && 
+        <PaymentTable
+          UserOrderDetails={userOrderDetails.data}
+          sellerId={res.data.sellerId}
+          UserPaymentDetails={paymentDetails.data}
+        />}
+      {/* <ErrorPage message="This page is under construction. Please check back later." /> */}
     </>
   );
 };

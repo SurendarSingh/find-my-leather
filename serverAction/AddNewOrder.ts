@@ -14,7 +14,7 @@ export async function AddNewOrder(data: OrderType) {
 
   try {
     await connectMongoDB();
-
+    
     const newOrder = await OrderModel.create(result.data);
 
     const savedOrder = await newOrder.save();
