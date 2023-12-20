@@ -1,10 +1,12 @@
+"use server";
+
 import { connectMongoDB } from "@/lib/MongoDB";
 import getErrorMessage from "@/lib/getErrorMessage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/NextAuthOption";
 import OrderModel from "@/lib/order/OrderModel";
 import { OrderType } from "@/lib/order/OrderZodSchema";
-import { orderDetailsFields as defaultOrderDetailsFields } from "@/lib/order/DefaultOrderValues";
+import { DefaultOrderDetailsFields } from "@/lib/order/DefaultOrderValues";
 
 const sampleOrderData: OrderType[] = [];
 
@@ -15,22 +17,19 @@ export async function FetchOrderDetails() {
     if (!session) {
       return { success: false, error: "You're not Logged In, Please Log In!" };
     }
-    
-    // Create a new array for orderDetailsFields to avoid mutation
-    const orderDetailsFields = [...defaultOrderDetailsFields];
 
     if (session.user?.role === "seller") {
-      orderDetailsFields.push("customerId");
+      DefaultOrderDetailsFields.push("customerId");
     }
 
     if (session.user?.role === "customer") {
-      orderDetailsFields.push("sellerId");
+      DefaultOrderDetailsFields.push("sellerId");
     }
 
-    const orderDetailsFieldsString = orderDetailsFields.join(" ");
-    
+    const DefaultOrderDetailsFieldsString = DefaultOrderDetailsFields.join(" ");
+
     await connectMongoDB();
-    
+
     let userOrderDetails;
 
     if (session.user?.role === "seller") {
@@ -38,22 +37,24 @@ export async function FetchOrderDetails() {
         {
           sellerId: session.user.id,
         },
-        orderDetailsFieldsString
+        DefaultOrderDetailsFieldsString
       )
+        .populate("customerId", "name email -_id")
         .exec();
     } else if (session.user?.role === "customer") {
       userOrderDetails = await OrderModel.find(
         { customerId: session.user.id },
-        orderDetailsFieldsString
+        DefaultOrderDetailsFieldsString
       )
+        .populate("sellerId", "name email -_id")
         .exec();
     } else {
       userOrderDetails = sampleOrderData;
     }
-    
+
     return {
       success: true,
-      data: userOrderDetails,
+      data: JSON.stringify(userOrderDetails),
     };
   } catch (error) {
     return {

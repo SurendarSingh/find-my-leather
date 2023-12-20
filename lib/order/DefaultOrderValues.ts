@@ -4,7 +4,7 @@ export const shippingMethod = ["Sea"] as const;
 export const complianceCertificates = ["LWG"] as const;
 export const paymentTerms = ["CAD"] as const;
 
-export const orderStatus = [
+export const DefaultOrderStatus = [
   "Supplier Matching",
   "Sample Request",
   "Sampling",
@@ -16,7 +16,7 @@ export const orderStatus = [
   "Delivered",
 ] as const;
 
-export const orderDetailsFields = [
+export const DefaultOrderDetailsFields = [
   "-_id",
   "orderId",
   "rfqDate",
@@ -36,5 +36,5 @@ export const orderDetailsFields = [
   "totalOrderValue",
   "expectedDeliveryDate",
   "orderStatus",
-  "documents"
+  "documents",
 ];

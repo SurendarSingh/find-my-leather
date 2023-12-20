@@ -15,7 +15,7 @@ import { AddNewOrder } from "@/serverAction/AddNewOrder";
 import AddNewCustomerForm from "./AddNewCustomerForm";
 import {
   complianceCertificates,
-  orderStatus,
+  DefaultOrderStatus,
   paymentTerms,
   selection,
   shippingMethod,
@@ -39,7 +39,7 @@ const AddNewOrderForm = ({
   } = useForm<OrderType>({
     resolver: zodResolver(OrderSchema),
   });
-  
+
   const [isFormEnabled, setIsFormEnabled] = useState(false);
   const [isFormProcessing, setIsFormProcessing] = useState(false);
   const [isOrderIdGenerated, setIsOrderIdGenerated] = useState(false);
@@ -480,7 +480,7 @@ const AddNewOrderForm = ({
                   <option value="" disabled hidden>
                     Choose Order Status
                   </option>
-                  {orderStatus.map((item) => (
+                  {DefaultOrderStatus.map((item) => (
                     <option key={item} value={item}>
                       {item}
                     </option>

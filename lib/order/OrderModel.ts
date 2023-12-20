@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {
   complianceCertificates,
-  orderStatus,
+  DefaultOrderStatus,
   paymentTerms,
   selection,
   shippingMethod,
@@ -45,18 +45,18 @@ const OrderModelSchema = new mongoose.Schema(
     pricePerSqFt: { type: Number, required: true },
     totalOrderValue: { type: Number, required: true },
     expectedDeliveryDate: { type: Date, required: true },
-    orderStatus: { type: String, enum: orderStatus, required: true },
-    documents:{
-        purchaseOrder: { type: String, default: "" },
-        supplierConfirmationOrder: { type: String , default: ""},
-        qcReport: { type: String , default: ""},
-        invoice: { type: String , default: ""},
-        packingList: { type: String , default: ""},
-        qualityCertificate: { type: String , default: ""},
-        lwgCertificate: { type: String , default: ""},
-        other: { type: String , default: ""},
-        shippingBill: { type: String , default: ""}
-    }
+    orderStatus: { type: String, enum: DefaultOrderStatus, required: true },
+    documents: {
+      purchaseOrder: { type: String, default: "" },
+      supplierConfirmationOrder: { type: String, default: "" },
+      qcReport: { type: String, default: "" },
+      invoice: { type: String, default: "" },
+      packingList: { type: String, default: "" },
+      qualityCertificate: { type: String, default: "" },
+      lwgCertificate: { type: String, default: "" },
+      other: { type: String, default: "" },
+      shippingBill: { type: String, default: "" },
+    },
   },
   { timestamps: true }
 );
