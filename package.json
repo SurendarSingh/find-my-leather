@@ -20,6 +20,7 @@
     "flowbite-react": "^0.6.4",
     "jsonwebtoken": "^9.0.2",
     "jsvectormap": "^1.5.3",
+    "moment": "^2.29.4",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
     "next": "14.0.0",
