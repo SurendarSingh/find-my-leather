@@ -7,6 +7,7 @@ import {
   shippingMethod,
   shippingTerms,
 } from "./DefaultOrderValues";
+import { modeOfPayment, paymentStatus } from "../payment/DefaultPaymentValues";
 
 const trimmedString = z
   .string()
@@ -39,7 +40,29 @@ export const OrderSchema = z.object({
   pricePerSqFt: positiveNumber,
   totalOrderValue: positiveNumber,
   expectedDeliveryDate: nonNullDate,
-  orderStatus: nonEmptyEnum(orderStatus),
+  orderStatus: nonEmptyEnum(orderStatus)
 });
 
+export const paymentSchema = z.object({
+  orderId: trimmedString,
+  article: trimmedString,
+  expectedDeliveryDate: nonNullDate,
+  orderStatus: nonEmptyEnum(orderStatus),
+  estimatedShipmentDate: nonNullDate,
+  pricePerSqFt: positiveNumber,
+  totalOrderValue: positiveNumber,
+  invoiceNumber: trimmedString,
+  invoiceDate: nonNullDate,
+  invoiceQuantity: positiveNumber,
+  totalInvoiceAmount: positiveNumber,
+  totalPaidAmount: positiveNumber,
+  paymentDueDate: nonNullDate,
+  modeOfPayment: nonEmptyEnum(modeOfPayment),
+  paymentStatus: nonEmptyEnum(paymentStatus),
+  quantity: positiveNumber,
+})
+
+export type PaymentType = z.infer<typeof paymentSchema>;
 export type OrderType = z.infer<typeof OrderSchema>;
+
+

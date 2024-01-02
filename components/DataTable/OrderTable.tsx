@@ -11,7 +11,7 @@ const OrderTable = ({ UserOrderDetails }: any) => {
     } else {
       setTableData(
         UserOrderDetails.filter(
-          (order: any) => order.DefaultOrderStatus === e.target.value
+          (order: any) => order.orderStatus === e.target.value
         )
       );
     }
@@ -123,10 +123,10 @@ const OrderTable = ({ UserOrderDetails }: any) => {
               </>
             ))}
           </tbody>
-        </table>
-      </div>
-    </>
-  );
-};
+          </table>
+        </div>
+      </>
+    )
+  };
 
 export default OrderTable;

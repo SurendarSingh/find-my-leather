@@ -55,6 +55,8 @@ const AddNewOrderForm = ({
       if (!res) {
         toast.warn("Something went wrong, Please try again later!");
       } else if (res.error) {
+        console.log(res.error);
+                
         toast.error(res.error);
       } else if (res.success) {
         temp = true;
