@@ -17,6 +17,7 @@ const OrderDocuments = ({ UserOrderDetails }: any) => {
     field: string
   ) => {
     if (e.target.files) {
+      
       handleEdit(field, orderId, e.target.files[0]);
     } else {
       console.log("[Err]", "Emplty file");

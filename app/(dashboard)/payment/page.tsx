@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const Payment = async () => {
   const res = await FetchCustomerList();
   const paymentDetails = await FetchPaymentDetails();
-
+  
   return (
     <>
       <Breadcrumb pageName="Payment Details" />

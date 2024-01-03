@@ -65,6 +65,17 @@ const OrderModelSchema = new mongoose.Schema(
         lwgCertificate: { type: String , default: ""},
         other: { type: String , default: ""},
         shippingBill: { type: String , default: ""}
+    },
+    trackingStatus:{
+      supplierMatching: { type: Date, default:null },
+      sampleRequest: { type: Date, default:null },
+      sampling: { type: Date, default:null },
+      sampleApproval: { type: Date, default:null },
+      production: { type: Date, default:null },
+      qualityControl: { type: Date, default:null },
+      packing: { type: Date, default:null },
+      shipped: { type: Date, default:null },
+      delivered: { type: Date, default:null }
     }
   },
   { timestamps: true }
