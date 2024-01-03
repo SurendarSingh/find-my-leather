@@ -39,14 +39,14 @@ export async function FetchOrderDetails() {
         },
         DefaultOrderDetailsFieldsString
       )
-        .populate("customerId", "name email -_id")
+        .populate("customerId", "name email _id")
         .exec();
     } else if (session.user?.role === "customer") {
       userOrderDetails = await OrderModel.find(
         { customerId: session.user.id },
         DefaultOrderDetailsFieldsString
       )
-        .populate("sellerId", "name email -_id")
+        .populate("sellerId", "name email _id")
         .exec();
     } else {
       userOrderDetails = sampleOrderData;

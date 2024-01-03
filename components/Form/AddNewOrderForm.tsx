@@ -21,6 +21,7 @@ import {
   shippingMethod,
   shippingTerms,
 } from "@/lib/order/DefaultOrderValues";
+import { UpdateOrderStatusDate } from "@/serverAction/UpdateOrderStatusDate";
 
 const AddNewOrderForm = ({
   customerList,
@@ -35,11 +36,13 @@ const AddNewOrderForm = ({
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<OrderType>({
     resolver: zodResolver(OrderSchema),
   });
-
+  console.log("err:", errors);
+  
   const [isFormEnabled, setIsFormEnabled] = useState(false);
   const [isFormProcessing, setIsFormProcessing] = useState(false);
   const [isOrderIdGenerated, setIsOrderIdGenerated] = useState(false);
@@ -51,7 +54,8 @@ const AddNewOrderForm = ({
     let temp = false;
     try {
       const res = await AddNewOrder(data);
-
+      console.log(data);
+      
       if (!res) {
         toast.warn("Something went wrong, Please try again later!");
       } else if (res.error) {
@@ -93,6 +97,29 @@ const AddNewOrderForm = ({
     } finally {
       setIsFormProcessing(false);
     }
+  };
+
+  
+  const orderId = watch("orderId");
+  const handleSelectChange = (
+    event: any,
+    key:any
+    ) => {
+      if (orderId && key) {
+        handleEdit( orderId, new Date(), key);
+      }
+  };
+
+  const handleEdit = async (orderId: string, selectedDate: Date,  idx: number) => {
+    const arr = [ "supplierMatching", "sampleRequest","sampling","sampleApproval","production","qualityControl","packing","shipped"];
+    const field = `trackingStatus.${arr[idx-1]}`;
+    console.log("selectedDate : ", selectedDate, ", orderId :", orderId, ", field : ", field);
+    const response = await UpdateOrderStatusDate(orderId, selectedDate,  field);
+    console.log(response.message);
+    
+    // if (response.success) {
+    //   window.location.reload();
+    // }
   };
 
   return (
@@ -478,12 +505,13 @@ const AddNewOrderForm = ({
                   disabled={!isFormEnabled}
                   defaultValue={""}
                   {...register("orderStatus")}
+                  // onChange={(event) => handleSelectChange(event, event.target.selectedIndex)}
                 >
                   <option value="" disabled hidden>
                     Choose Order Status
                   </option>
-                  {DefaultOrderStatus.map((item) => (
-                    <option key={item} value={item}>
+                  {DefaultOrderStatus.map((item, idx) => (
+                    <option key={item} value={item} >
                       {item}
                     </option>
                   ))}

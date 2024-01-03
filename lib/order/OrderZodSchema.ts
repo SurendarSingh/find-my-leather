@@ -1,7 +1,8 @@
 import * as z from "zod";
 import {
   complianceCertificates,
-  orderStatus,
+  DefaultOrderStatus,
+  DefaultTrackingStatus,
   paymentTerms,
   selection,
   shippingMethod,
@@ -40,14 +41,14 @@ export const OrderSchema = z.object({
   pricePerSqFt: positiveNumber,
   totalOrderValue: positiveNumber,
   expectedDeliveryDate: nonNullDate,
-  orderStatus: nonEmptyEnum(orderStatus)
+  orderStatus: nonEmptyEnum(DefaultOrderStatus)
 });
 
 export const paymentSchema = z.object({
   orderId: trimmedString,
   article: trimmedString,
   expectedDeliveryDate: nonNullDate,
-  orderStatus: nonEmptyEnum(orderStatus),
+  orderStatus: nonEmptyEnum(DefaultOrderStatus),
   estimatedShipmentDate: nonNullDate,
   pricePerSqFt: positiveNumber,
   totalOrderValue: positiveNumber,
@@ -62,6 +63,12 @@ export const paymentSchema = z.object({
   quantity: positiveNumber,
 })
 
+export const orderStatusSchema = z.object({
+  orderId: trimmedString,
+  orderStatus: nonEmptyEnum(DefaultOrderStatus)
+})
+
+export type OrderStatusType = z.infer<typeof orderStatusSchema>;
 export type PaymentType = z.infer<typeof paymentSchema>;
 export type OrderType = z.infer<typeof OrderSchema>;
 

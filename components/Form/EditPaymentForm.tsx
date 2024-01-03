@@ -49,7 +49,7 @@ useEffect(() => {
         setValue("invoiceQuantity", orderItem?.quantity)
         setValue("totalInvoiceAmount", orderItem?.totalOrderValue)
         setValue("estimatedShipmentDate", orderItem?.estimatedShipmentDate)
-        setValue("expectedDeliveryDate", orderItem?.expectedDeliveryDate.toISOString().substring(0, 10))
+        setValue("expectedDeliveryDate", new Date(orderItem?.expectedDeliveryDate) )
         setValue("orderStatus", orderItem?.orderStatus)
         setValue("pricePerSqFt", orderItem?.pricePerSqFt)
         setValue("quantity", orderItem?.quantity)

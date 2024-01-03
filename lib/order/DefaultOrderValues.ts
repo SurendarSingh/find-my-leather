@@ -26,6 +26,17 @@ export const paymentDetailsFields = [
   "paymentStatus"
 ];
 
+export const DefaultTrackingStatus = [
+  "supplierMatching",
+  "sampleRequest",
+  "sampling" ,
+  "sampleApproval",
+  "production",
+  "qualityControl",
+  "packing",
+  "shipped"
+] as const;
+
 export const paymentStatus = [
   "Unpaid",
   "Pending",
@@ -72,5 +83,7 @@ export const DefaultOrderDetailsFields = [
   "expectedDeliveryDate",
   "orderStatus",
   "documents",
-  "invoiceNumber"
+  "invoiceNumber",
+  "paymentStatus",
+  "trackingStatus"
 ];
